@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import MovieCard from './components/MovieCard/MovieCard';
+import SearchBar from './components/SearchBar/SearchBar';
 import { Container, Row, Col, Button, Dropdown, DropdownButton } from 'react-bootstrap';
-import TomJerry from '../src/assets/tomjerry.jpg'
+import TomJerry from '../src/assets/tomjerry.jpg';
 import './App.css';
 
 let movies210 = []
-
+let movieInputArray= []
 
 
 class App extends React.Component {
@@ -14,7 +15,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      isDisplayed: false
+      isDisplayed: false,
+      searchInputValue: '',
     }
   }
 
@@ -106,6 +108,27 @@ class App extends React.Component {
     })
   }
 
+  handleChange = (event) => {
+    this.setState({ searchInputValue: event.target.value })
+  }
+ 
+
+  handleSubmit2 = () => {
+    let searchInputValue = this.state.searchInputValue.toLowerCase();
+      const filteredMovies = movies210.filter(function(item) {
+        console.log('item.original_title', item.original_title)
+        console.log('item.original_title.indexOf(searchInputValue) > - 1', item.original_title.indexOf(searchInputValue) > - 1)
+       return item.original_title.indexOf(searchInputValue) > - 1;
+       //trouve object selon titre et renvoie tout l'objet
+       //set the state
+     })
+     console.log('searchInputValue', searchInputValue)
+     console.log('movies210', movies210)
+
+     console.log('34343434', filteredMovies)
+     ;
+
+  }
 
   render() {
 
@@ -125,6 +148,12 @@ class App extends React.Component {
                 <Dropdown.Item onClick={() => { this.sortAlphabeticallyDown(movies210) }}>Title Descending</Dropdown.Item>
 
               </DropdownButton>
+
+              <SearchBar
+          input={this.state.searchInputValue}
+          inputChangeHandler={this.handleChange}
+          inputSubmitHandler={this.handleSubmit2}
+        />
             </div>
             :
             <div className='welcome-container'>
