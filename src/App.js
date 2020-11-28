@@ -199,7 +199,7 @@ class App extends React.Component {
               <img className="welcome-img" src={TomJerry} alt="tom and jerry logo" />
               <div>
                 <div className='Welcome'>Szia! Üdvözölek a legjobb filmet oldalàn.</div>
-                <div className='Welcome'> Ha szeretnéd tudni melyikek a legjobb 210 filmek az egész univerzumba, katincs ide</div>
+                <div className='Welcome'> Ha szeretnéd tudni melyek a legjobb 210 filmek az egész univerzumba, katincs ide</div>
                 <Button className='mb-5' variant="dark" size="lg" onClick={this.handleSubmit} >Show movies</Button>
 
               </div>
