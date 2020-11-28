@@ -115,10 +115,11 @@ class App extends React.Component {
 
   handleSubmit2 = () => {
     let searchInputValue = this.state.searchInputValue.toLowerCase();
+    
       const filteredMovies = movies210.filter(function(item) {
         console.log('item.original_title', item.original_title)
         console.log('item.original_title.indexOf(searchInputValue) > - 1', item.original_title.indexOf(searchInputValue) > - 1)
-       return item.original_title.indexOf(searchInputValue) > - 1;
+       return item.original_title.toLowerCase().indexOf(searchInputValue) > - 1;
        //trouve object selon titre et renvoie tout l'objet
        //set the state
      })
