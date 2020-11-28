@@ -60,6 +60,8 @@ class App extends React.Component {
     console.log('state movies length', this.state.movies)
   }
 
+  
+
 
   //----function that sort objects by Ascending numbers (movie Index) -----//
   sortbyRankTop(inputArray) {
@@ -129,6 +131,7 @@ class App extends React.Component {
     this.setState({ movies: filteredMovies })
   }
 
+    //----function that select x movies in the array and display it by page (next)-----//
 
   paginationNext = (array, page_size, page_number) => {
     let page = this.state.page;
@@ -140,16 +143,17 @@ class App extends React.Component {
   }
 
 
+    //----function that select x movies in the array and display it by page (back)-----//
+  
   paginationBack = (array, page_size, page_number) => {
     let page = this.state.page;
-
     if (page <= 0) { return }
     const paginated = array.slice((page_number - 1) * page_size, page_number * page_size);
     console.log('page -1', page)
     page = page - 1;
     this.setState({ movies: paginated, page: page, isPage: true })
-
   }
+
 
   render() {
     let { perPage, page } = this.state;
@@ -184,7 +188,7 @@ class App extends React.Component {
                 <Button className='mb-5' variant="light" onClick={() => { this.paginationBack(movies210, perPage, page) }}> back </Button>
                 <Button className='mb-5' variant="light" onClick={() => { this.paginationNext(movies210, perPage, page) }}> next </Button>
 
-                <p className='Welcome'> Page {page - 1}</p>
+                <p className='Welcome'> Page {page}</p>
 
 
               </div>
