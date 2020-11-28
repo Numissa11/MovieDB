@@ -2,20 +2,21 @@ import React from 'react';
 import axios from 'axios';
 import MovieCard from './components/MovieCard/MovieCard';
 import { Container, Row, Col, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import TomJerry from '../src/assets/tomjerry.jpg'
 import './App.css';
 
 let movies210 = []
-   
+
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      movies: [],
+      isDisplayed: false
     }
   }
-
 
 
   //--------------------------- API call & Set the State to the incoming movies results -----------------------//
@@ -46,7 +47,8 @@ class App extends React.Component {
     //----cut myarray to 210 movies-----//
 
     movies210 = myarray.slice(0, 211);
-    this.setState({ movies: movies210 })
+    this.setState({ movies: movies210, isDisplayed: true })
+
 
     //----console -----//
 
@@ -55,71 +57,88 @@ class App extends React.Component {
     console.log('state movies length', this.state.movies)
   }
 
- 
-       //----function that sort objects by Ascending numbers (movie Index) -----//
-       sortbyRankTop(inputArray) {
-      
-     console.log('inputarray', this.inputArray)
 
-     return inputArray.sort((a, b) =>{
+  //----function that sort objects by Ascending numbers (movie Index) -----//
+  sortbyRankTop(inputArray) {
+
+    console.log('inputarray', this.inputArray)
+
+    return inputArray.sort((a, b) => {
       this.setState({ movies210 })
-       return b.imdbIndex + a.imdbIndex})
-     
-      }
-
-        //----function that sort objects by Descending numbers (movie Index) -----//
-        sortbyRankLow(inputArray) {
-      
-          return inputArray.sort((a, b) =>{
-           this.setState({ movies210 })
-            return b.imdbIndex - a.imdbIndex})
-          
-           }
-
-     //----function that sort objects Alphabetically (by movie title) -----//
-     sortAlphabeticallyUp(inputArray) {
-     
-      return inputArray.sort((a, b) => {
-        this.setState({ movies210 })
-        if (a.original_title > b.original_title) {
-          return 1
-        } else {
-          return -1
-        }
-        })
-    }  
-
- //----function that sort objects Descending Alphabetically (by movie title) -----//
- sortAlphabeticallyDown(inputArray) {
-     
-  return inputArray.sort((a, b) => {
-    this.setState({ movies210 })
-    if (a.original_title < b.original_title) {
-      return 1
-    } else {
-      return -1
-    }
+      return b.imdbIndex + a.imdbIndex
     })
-} 
+
+  }
+
+  //----function that sort objects by Descending numbers (movie Index) -----//
+  sortbyRankLow(inputArray) {
+
+    return inputArray.sort((a, b) => {
+      this.setState({ movies210 })
+      return b.imdbIndex - a.imdbIndex
+    })
+
+  }
+
+  //----function that sort objects Alphabetically (by movie title) -----//
+  sortAlphabeticallyUp(inputArray) {
+
+    return inputArray.sort((a, b) => {
+      this.setState({ movies210 })
+      if (a.original_title > b.original_title) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+  }
+
+  //----function that sort objects Descending Alphabetically (by movie title) -----//
+  sortAlphabeticallyDown(inputArray) {
+
+    return inputArray.sort((a, b) => {
+      this.setState({ movies210 })
+      if (a.original_title < b.original_title) {
+        return 1
+      } else {
+        return -1
+      }
+    })
+  }
 
 
   render() {
 
-       return (
+    return (
       <div className="App">
 
 
         {/* BUTTON & DROPDOWNS */}
+        <div className='home-container'>
 
-        <Button variant="outline-info" onClick={this.handleSubmit} >Show movies</Button>
+          {this.state.isDisplayed ?
+            <div className='myDropdown'>
+              <DropdownButton variant="dark" className='my-3' id="dropdown-basic-button" title="Filter Movie By">
+                <Dropdown.Item onClick={() => { this.sortbyRankTop(movies210) }}>Top to Low Rank</Dropdown.Item>
+                <Dropdown.Item onClick={() => { this.sortbyRankLow(movies210) }}>Low to Top Rank</Dropdown.Item>
+                <Dropdown.Item onClick={() => { this.sortAlphabeticallyUp(movies210) }}>Title Ascending</Dropdown.Item>
+                <Dropdown.Item onClick={() => { this.sortAlphabeticallyDown(movies210) }}>Title Descending</Dropdown.Item>
 
-        <DropdownButton id="dropdown-basic-button" title="Filter Movie By">
-          <Dropdown.Item onClick={() =>{this.sortbyRankTop(movies210)}}>Top to Low Rank</Dropdown.Item>
-          <Dropdown.Item onClick={() =>{this.sortbyRankLow(movies210)}}>Low to Top Rank</Dropdown.Item>
-          <Dropdown.Item  onClick={() => {this.sortAlphabeticallyUp(movies210)}}>Title Ascending</Dropdown.Item>
-          <Dropdown.Item  onClick={() => {this.sortAlphabeticallyDown(movies210)}}>Title Descending</Dropdown.Item>
+              </DropdownButton>
+            </div>
+            :
+            <div className='welcome-container'>
+              <img className="welcome-img" src={TomJerry} alt="tom and jerry logo" />
+              <div>
+                <div className='Welcome'>Szia! Üvözölek a LEGJOBB FILMEK oldalàn.</div>
+                <div className='Welcome'> Ha szeretnéd tudni melyikek a legjobb 210 filmek az egész univerzumba, katincs ide</div>
+                <Button className='mb-5' variant="dark" size="lg" onClick={this.handleSubmit} >Show movies</Button>
+              </div>
+            </div>
 
-        </DropdownButton>
+          }
+
+        </div>
 
         {/* MOVIE CARD */}
         <Container className="card-template">
