@@ -53,14 +53,14 @@ class MovieCard extends React.Component {
                               </Modal.Header>
                               <Modal.Body>
                               <img src={poster} alt={this.props.poster_path} />
-                              <p className='bg-secondary rounded'>Title: {this.props.original_title}</p>
+                              <p className='bg-secondary rounded text-light'>Title: {this.props.original_title}</p>
                               <p>Release Date: {this.props.release_date}</p>
                               <p>Language: {this.props.original_language}</p>
                               <p>Length: {this.props.genre_ids.length}</p>
                               <p>Id: {this.props.id}</p>
                               <p>Vote average: {this.props.vote_average}</p>
                               <p>Total vote: {this.props.vote_count}</p>
-                              <p className='font-italic mt-2 bg-secondary rounded'>Summary: {this.props.overview}</p>
+                              <p className='font-italic mt-2 bg-light rounded'>Summary: {this.props.overview}</p>
 
                               </Modal.Body>
                         </Modal>

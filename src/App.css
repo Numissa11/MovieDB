@@ -1,12 +1,10 @@
 
 .home-container{
 text-align: center;
-background-color:  #757474;
+background-color:  #ffa733;
 display: flex;
 justify-content: space-around;
-      align-items:center;
-  
-
+align-items:center;
 }
 
 .welcome-container {
@@ -19,9 +17,14 @@ justify-content: space-around;
       max-width: 700px;
 }
 
+.welcome-img2{
+width:300px;
+margin-top: 5%;
+}
+
 .Welcome {
       margin: 50px 180px ;
-      max-width: 500px;
+      max-width: 800px;
       font-family: 'Cinzel';
       font-size: 40px;
       color:white;
