@@ -185,8 +185,8 @@ class App extends React.Component {
                   inputSubmitHandler={this.handleSubmit2}
                 />
 
-                <Button className='mb-5' variant="light" onClick={() => { this.paginationBack(movies210, perPage, page) }}> back </Button>
-                <Button className='mb-5' variant="light" onClick={() => { this.paginationNext(movies210, perPage, page) }}> next </Button>
+                <Button className='mb-3' variant="light" onClick={() => { this.paginationBack(movies210, perPage, page) }}> back </Button>
+                <Button className='mb-3' variant="light" onClick={() => { this.paginationNext(movies210, perPage, page) }}> next </Button>
 
                 <p className='Welcome'> Page {page}</p>
 
