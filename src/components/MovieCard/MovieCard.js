@@ -11,7 +11,6 @@ class MovieCard extends React.Component {
             }
       }
 
-
       // MODAL OPEN FUNCTION
       handleShow = () => {
 
@@ -19,8 +18,6 @@ class MovieCard extends React.Component {
                   show: true
             })
       }
-
-
       // MODAL CLOSE FUNCTION
       handleClose = () => {
             this.setState({
@@ -29,7 +26,6 @@ class MovieCard extends React.Component {
       }
 
       render() {
-      console.log(this.props)
             let poster = `https://image.tmdb.org/t/p/w300/${this.props.poster_path}`;
             return (
                   <div class="row">
@@ -40,13 +36,11 @@ class MovieCard extends React.Component {
                               <div className="mt-2">
                                     <h3 className="text-white bg-dark card-title text-center">{this.props.original_title}</h3>
                                     <img src={poster} alt={this.props.poster_path} />
-
-                                    <h4 className='bg-info my-2'> Top list: </h4>
-                                    
-                                          <p>Length: {this.props.genre_ids.length}</p>
-                                          <p>Vote average: {this.props.vote_average}</p>
-                                          <p>Total vote: {this.props.vote_count}</p>
-
+                                    <h4 className='bg-info my-2'> Top Rank: {this.props.imdbIndex} </h4>
+                                    <p>Length: {this.props.genre_ids.length}</p>
+                                    <p>Vote average: {this.props.vote_average}</p>
+                                     <p>Total vote: {this.props.vote_count}</p>
+           
                               </div>
                         </a>
 
@@ -59,14 +53,14 @@ class MovieCard extends React.Component {
                               </Modal.Header>
                               <Modal.Body>
                               <img src={poster} alt={this.props.poster_path} />
-                              <p className='bg-info rounded'>Title: {this.props.original_title}</p>
+                              <p className='bg-secondary rounded'>Title: {this.props.original_title}</p>
                               <p>Release Date: {this.props.release_date}</p>
                               <p>Language: {this.props.original_language}</p>
                               <p>Length: {this.props.genre_ids.length}</p>
                               <p>Id: {this.props.id}</p>
                               <p>Vote average: {this.props.vote_average}</p>
                               <p>Total vote: {this.props.vote_count}</p>
-                              <p className='font-italic mt-2 bg-info rounded'>Summary: {this.props.overview}</p>
+                              <p className='font-italic mt-2 bg-secondary rounded'>Summary: {this.props.overview}</p>
 
                               </Modal.Body>
                         </Modal>
