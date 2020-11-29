@@ -28,7 +28,7 @@ class MovieCard extends React.Component {
       render() {
             let poster = `https://image.tmdb.org/t/p/w300/${this.props.poster_path}`;
             return (
-                  <div class="row">
+                  <div className="row">
 
                         {/* MOVIE CARD */}
 

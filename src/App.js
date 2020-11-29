@@ -39,7 +39,6 @@ class App extends React.Component {
 
       //----push arriving data to myarray -----//
       cleanArray.forEach(element => {
-
         element.imdbIndex = movieIndex
         movieIndex++
         myarray.push(element)
@@ -53,28 +52,22 @@ class App extends React.Component {
 
     this.setState({ movies: movies210, isDisplayed: true })
 
-
-    //----console -----//
-
-    console.log('myarray', myarray)
-    console.log('myarray length', myarray.length)
-    console.log('state movies length', this.state.movies)
   }
 
-  
+
 
 
   //----function that sort objects by Ascending numbers (movie Index) -----//
   sortbyRankTop(inputArray) {
-      const sortedMovies =  inputArray.sort((a, b) => {
+    const sortedMovies = inputArray.sort((a, b) => {
       return a.imdbIndex - b.imdbIndex
     })
-    
     this.setState({ movies: sortedMovies })
   }
 
   //----function that sort objects by Descending numbers (movie Index) -----//
   sortbyRankLow(inputArray) {
+
     const sortedMovies = inputArray.sort((a, b) => {
       return b.imdbIndex - a.imdbIndex
     })
@@ -84,6 +77,7 @@ class App extends React.Component {
 
   //----function that sort objects Alphabetically (by movie title) -----//
   sortAlphabeticallyUp(inputArray) {
+
     const sortedMovies = inputArray.sort((a, b) => {
       if (a.original_title > b.original_title) {
         return 1
@@ -91,7 +85,6 @@ class App extends React.Component {
         return -1
       }
     })
-
     this.setState({ movies: sortedMovies })
   }
 
@@ -121,32 +114,23 @@ class App extends React.Component {
     let searchInputValue = this.state.searchInputValue.toLowerCase();
 
     const filteredMovies = movies210.filter(function (item) {
-      console.log('item.original_title', item.original_title)
-      console.log('item.original_title.indexOf(searchInputValue) > - 1', item.original_title.indexOf(searchInputValue) > - 1)
       return item.original_title.toLowerCase().indexOf(searchInputValue) > - 1;
-
     })
-    console.log('searchInputValue', searchInputValue)
-    console.log('filtered movies', filteredMovies)
+   
     this.setState({ movies: filteredMovies })
   }
 
-    //----function that select x movies in the array and display it by page (next)-----//
+  //----function that select x movies in the array and display it by page (next)-----//
 
   paginationNext = (array, page_size, page_number) => {
-    console.log('paginationNext ******************************************')
-    console.log('paginationNext page_size', page_size)
-    console.log('paginationNext page_number', page_number)
-
+   
     let page = page_number;
 
     if (page >= this.state.maxPage) { return }
 
-    if(!(this.state.movies.length === 210)) {
+    if (!(this.state.movies.length === 210)) {
       page++
     }
-    
-    console.log('paginationNext page +1', page)
 
     const paginated = array.slice((page - 1) * page_size, page * page_size);
 
@@ -154,29 +138,18 @@ class App extends React.Component {
   }
 
 
-    //----function that select x movies in the array and display it by page (back)-----//
-  
+  //----function that select x movies in the array and display it by page (back)-----//
+
   paginationBack = (array, page_size, page_number) => {
-    console.log('paginationBack ******************************************')
-    console.log('paginationBack page_size', page_size)
-    console.log('paginationBack page_number', page_number)
 
     let page = page_number;
-
-    if (page === 1) { 
+    if (page === 1) {
       this.setState({ movies: movies210 })
-
-      return 
+      return
     }
-
     page = page - 1;
-
     if (page < 1) { return }
-
     const paginated = array.slice((page - 1) * page_size, page * page_size);
-
-    console.log('paginationBack page -1', page)
-
     this.setState({ movies: paginated, page })
   }
 
@@ -186,14 +159,13 @@ class App extends React.Component {
     return (
       <div className="App">
 
-
         {/* BUTTON & DROPDOWNS */}
         <div className='home-container'>
 
           {this.state.isDisplayed ?
             <div>
               <img className="welcome-img2" src='https://thumbs.dreamstime.com/b/astronaut-draw-planets-design-spaceman-galaxy-cosmonaut-universe-space-science-technology-theme-vector-illustration-149679239.jpg' alt="tom and jerry logo" />
-              
+
               <div className='myDropdown'>
 
                 <h1 className='Welcome'>WELCOME TO TOP 210 MOVIES</h1>
@@ -202,7 +174,6 @@ class App extends React.Component {
                   <Dropdown.Item onClick={() => { this.sortbyRankLow(movies210) }}>Low to Top Rank</Dropdown.Item>
                   <Dropdown.Item onClick={() => { this.sortAlphabeticallyUp(movies210) }}>Title Ascending</Dropdown.Item>
                   <Dropdown.Item onClick={() => { this.sortAlphabeticallyDown(movies210) }}>Title Descending</Dropdown.Item>
-
                 </DropdownButton>
 
                 <SearchBar
@@ -215,11 +186,8 @@ class App extends React.Component {
                 <Button className='mb-3' variant="light" onClick={() => { this.paginationNext(movies210, perPage, page) }}> next </Button>
 
                 <p className='Welcome'> {this.state.movies.length === 210 ? 'All movies' : `Page ${page}`}</p>
-
-
               </div>
             </div>
-
             :
             <div className='welcome-container'>
               <img className="welcome-img" src={TomJerry} alt="tom and jerry logo" />
@@ -230,7 +198,6 @@ class App extends React.Component {
 
               </div>
             </div>
-
           }
 
         </div>
