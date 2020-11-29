@@ -17,7 +17,7 @@ class App extends React.Component {
       searchInputValue: '',
       page: 1,
       perPage: 50,
-      isPage: false
+      maxPage: 5
     }
   }
 
@@ -50,6 +50,7 @@ class App extends React.Component {
     //----cut myarray to 210 movies-----//
 
     movies210 = myarray.slice(0, 210);
+
     this.setState({ movies: movies210, isDisplayed: true })
 
 
@@ -65,48 +66,47 @@ class App extends React.Component {
 
   //----function that sort objects by Ascending numbers (movie Index) -----//
   sortbyRankTop(inputArray) {
-  
-    return inputArray.sort((a, b) => {
-      this.setState({ movies210 })
+      const sortedMovies =  inputArray.sort((a, b) => {
       return a.imdbIndex - b.imdbIndex
     })
-
+    
+    this.setState({ movies: sortedMovies })
   }
 
   //----function that sort objects by Descending numbers (movie Index) -----//
   sortbyRankLow(inputArray) {
-
-    return inputArray.sort((a, b) => {
-      this.setState({ movies210 })
+    const sortedMovies = inputArray.sort((a, b) => {
       return b.imdbIndex - a.imdbIndex
     })
 
+    this.setState({ movies: sortedMovies })
   }
 
   //----function that sort objects Alphabetically (by movie title) -----//
   sortAlphabeticallyUp(inputArray) {
-
-    return inputArray.sort((a, b) => {
-      this.setState({ movies210 })
+    const sortedMovies = inputArray.sort((a, b) => {
       if (a.original_title > b.original_title) {
         return 1
       } else {
         return -1
       }
     })
+
+    this.setState({ movies: sortedMovies })
   }
 
   //----function that sort objects Descending Alphabetically (by movie title) -----//
   sortAlphabeticallyDown(inputArray) {
 
-    return inputArray.sort((a, b) => {
-      this.setState({ movies210 })
+    const sortedMovies = inputArray.sort((a, b) => {
       if (a.original_title < b.original_title) {
         return 1
       } else {
         return -1
       }
     })
+
+    this.setState({ movies: sortedMovies })
   }
 
   //-------- function that change the State with the value typed in the input ---------//
@@ -134,24 +134,50 @@ class App extends React.Component {
     //----function that select x movies in the array and display it by page (next)-----//
 
   paginationNext = (array, page_size, page_number) => {
-    let page = this.state.page;
-    page++
-    const paginated = array.slice((page_number - 1) * page_size, page_number * page_size);
-    console.log('page +1', page)
+    console.log('paginationNext ******************************************')
+    console.log('paginationNext page_size', page_size)
+    console.log('paginationNext page_number', page_number)
 
-    this.setState({ movies: paginated, page: page })
+    let page = page_number;
+
+    if (page >= this.state.maxPage) { return }
+
+    if(!(this.state.movies.length === 210)) {
+      page++
+    }
+    
+    console.log('paginationNext page +1', page)
+
+    const paginated = array.slice((page - 1) * page_size, page * page_size);
+
+    this.setState({ movies: paginated, page })
   }
 
 
     //----function that select x movies in the array and display it by page (back)-----//
   
   paginationBack = (array, page_size, page_number) => {
-    let page = this.state.page;
-    if (page <= 0) { return }
-    const paginated = array.slice((page_number - 1) * page_size, page_number * page_size);
-    console.log('page -1', page)
+    console.log('paginationBack ******************************************')
+    console.log('paginationBack page_size', page_size)
+    console.log('paginationBack page_number', page_number)
+
+    let page = page_number;
+
+    if (page === 1) { 
+      this.setState({ movies: movies210 })
+
+      return 
+    }
+
     page = page - 1;
-    this.setState({ movies: paginated, page: page, isPage: true })
+
+    if (page < 1) { return }
+
+    const paginated = array.slice((page - 1) * page_size, page * page_size);
+
+    console.log('paginationBack page -1', page)
+
+    this.setState({ movies: paginated, page })
   }
 
 
@@ -188,7 +214,7 @@ class App extends React.Component {
                 <Button className='mb-3' variant="light" onClick={() => { this.paginationBack(movies210, perPage, page) }}> back </Button>
                 <Button className='mb-3' variant="light" onClick={() => { this.paginationNext(movies210, perPage, page) }}> next </Button>
 
-                <p className='Welcome'> Page {page}</p>
+                <p className='Welcome'> {this.state.movies.length === 210 ? 'All movies' : `Page ${page}`}</p>
 
 
               </div>
